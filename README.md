@@ -23,7 +23,10 @@ This plugin can:
 - [Crop marks](https://en.wikipedia.org/wiki/Printing#Crop_marks)  
 - [Registration](https://en.wikipedia.org/wiki/Printing_registration)  
 - [Bleed (Printing)](https://en.wikipedia.org/wiki/Bleed_(printing))  
-- [トンボ (印刷)](https://ja.wikipedia.org/wiki/トンボ_(印刷))  
+- [トンボ (印刷)](https://ja.wikipedia.org/wiki/トンボ_(印刷))
+
+
+<img width="256" height="256" alt="vector_guide_marks-logo" src="https://github.com/user-attachments/assets/f83fc520-5925-4685-a5a8-199297223435" />
 
 ### Preset
 
@@ -174,3 +177,6 @@ A following info displayed
 ### Special Thanks 
 A following plugin helped me for check and debugging to the Krita internal SVG data.  
 [Krita-ShapesAndLayers-Plugin](https://github.com/KnowZero/Krita-ShapesAndLayers-Plugin)
+
+<img width="992" height="2761" alt="vector_guide_marks-manual" src="https://github.com/user-attachments/assets/b5f31dd4-645d-4333-a4e8-d4c7a607ee58" />
+
