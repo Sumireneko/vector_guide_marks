@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>Form</class>
+  <widget class="QWidget" name="Form">
+
+    <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+        <layout class="QHBoxLayout">
+          <item><widget class="QLabel" name="labelPreset"><property name="text"><string>Preset:</string></property></widget></item>
+          <item><widget class="QComboBox" name="comboPreset"><item><property name="text"><string>US</string></property></item></widget></item>
+        </layout>
+      </item>
+
+
+      <item>
+        <layout class="QHBoxLayout">
+          <item><widget class="QLabel" name="labelSize"><property name="text"><string>Paper Size:</string></property></widget></item>
+          <item><widget class="QComboBox" name="comboSize"><item><property name="text"><string>A2</string></property></item></widget></item>
+        </layout>
+      </item>
+
+  
+
+
+      <item>
+        <layout class="QHBoxLayout">
+          <item><widget class="QLabel" name="labelOrient"><property name="text"><string>Orientation:</string></property></widget></item>
+
+
+          <item><widget class="QRadioButton" name="radioVertical"><property name="text"><string>Vertical</string></property></widget></item>
+          <item><widget class="QRadioButton" name="radioHorizontal"><property name="text"><string>Horizontal</string></property></widget></item>
+
+
+
+
+        </layout>
+      </item> 
+
+
+  <item>
+      <widget class="QFrame" name="lineHair7">
+      <property name="frameShape">
+        <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="QCheckBox" name="checkBleed">
+              <property name="text">
+                <string>Use CropMarks( Bleed:3 mm)</string>
+              </property>
+            </widget>
+          </item>
+
+          <item><widget class="QLabel" name="labelCropmark"><property name="text"><string></string></property></widget></item>
+        </layout>
+      </item>
+
+      <item>
+        <layout class="QHBoxLayout">
+<item>
+<spacer name="horizontalSpacer">
+ <property name="orientation">
+  <enum>Qt::Horizontal</enum>
+ </property>
+ <property name="sizeHint" stdset="0">
+  <size>
+   <width>40</width>
+   <height>20</height>
+  </size>
+ </property>
+</spacer>
+</item>
+
+
+          <item><widget class="QLabel" name="labelCropmark"><property name="text"><string>Style:</string></property></widget></item>
+ 
+          <item><widget class="QRadioButton" name="radioDefault"><property name="text"><string>Default,</string></property></widget></item>
+          <item><widget class="QRadioButton" name="radioJapanese"><property name="text"><string>Japanese Style (Tonbo)</string></property></widget></item>
+        </layout>
+      </item>
+
+
+  <item>
+      <widget class="QFrame" name="lineHair7">
+      <property name="frameShape">
+        <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+
+      <item>
+        <layout class="QHBoxLayout">
+
+<item>
+<spacer name="horizontalSpacer">
+ <property name="orientation">
+  <enum>Qt::Horizontal</enum>
+ </property>
+ <property name="sizeHint" stdset="0">
+  <size>
+   <width>10</width>
+   <height>20</height>
+  </size>
+ </property>
+</spacer>
+</item>
+
+<!-- Display Extras -->
+          <item><widget class="QLabel"><property name="text"><string>Display extras:</string></property></widget></item>
+
+          <item>
+            <widget class="QCheckBox" name="checkFrame">
+              <property name="text">
+                <string>Border</string>
+              </property>
+            <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+              </sizepolicy>
+            </property>
+            </widget>
+          </item>
+
+          <item>
+            <widget class="QCheckBox" name="checkGuide">
+            </widget>
+          </item>
+          <item>
+            <widget class="QCheckBox" name="checkGuide2">
+              <property name="text">
+                <string>Guides</string>
+              </property>
+            </widget>
+          </item>
+
+          <item>
+            <widget class="QCheckBox" name="checkInfo">
+              <property name="text">
+                <string>Info text</string>
+              </property>
+            </widget>
+          </item>
+
+
+          <item><widget class="QLabel"  ><property name="text"><string>as</string></property></widget></item>
+          <item><widget class="QComboBox" name="comboUnit"><item><property name="text"><string>mm</string></property></item></widget></item>
+
+
+
+
+        </layout>
+      </item>
+
+
+
+  <item>
+      <widget class="QFrame" name="lineHair8">
+      <property name="frameShape">
+        <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+<!-- Dimension lines -->
+<item>
+  <layout class="QHBoxLayout" name="displayDim">
+
+    <item>
+      <widget class="QCheckBox" name="checkDim">
+        <property name="text">
+          <string>Dimension lines:</string>
+        </property>
+      </widget>
+    </item>
+
+    <item>
+      <widget class="QCheckBox" name="checkScale">
+        <property name="text">
+          <string>Scale</string>
+        </property>
+      </widget>
+    </item>
+
+<item><widget class="QSpinBox" name="dimScaleFactor"></widget></item>
+
+    <item>
+      <widget class="QCheckBox" name="checkDimW">
+        <property name="text">
+          <string>W</string>
+        </property>
+      </widget>
+    </item>
+
+
+    <item>
+      <widget class="QCheckBox" name="checkDimH">
+        <property name="text">
+          <string>H</string>
+        </property>
+      </widget>
+    </item>
+
+
+
+
+  </layout>
+  </item>
+
+
+
+
+  <item>
+      <widget class="QFrame" name="lineHair7">
+      <property name="frameShape">
+        <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+<item>
+  <layout class="QHBoxLayout" name="displaySlice">
+
+    <item>
+      <widget class="QCheckBox" name="checkSlice">
+        <property name="text">
+          <string>Modular Grid:</string>
+        </property>
+      </widget>
+    </item>
+
+  </layout>
+</item>
+
+
+
+<item>
+  <layout class="QHBoxLayout" name="displaySlice">
+
+
+<item>
+<spacer name="horizontalSpacer_m">
+ <property name="orientation">
+  <enum>Qt::Horizontal</enum>
+ </property>
+ <property name="sizeHint" stdset="0">
+  <size>
+   <width>10</width>
+   <height>20</height>
+  </size>
+ </property>
+</spacer>
+</item>
+
+
+    <item>
+      <widget class="QCheckBox" name="chkIgnoreShape">
+        <property name="text">
+          <string>Free size</string>
+        </property>
+      </widget>
+    </item>
+
+    <item>
+      <widget class="QCheckBox" name="chkTxtCapa">
+        <property name="text">
+          <string>Text Capacity</string>
+        </property>
+      </widget>
+    </item>
+
+
+    <item>
+      <widget class="QCheckBox" name="chkRoundedCorners">
+        <property name="text">
+          <string>Roundness</string>
+        </property>
+      </widget>
+    </item>
+
+  <item><widget class="QSpinBox" name="Roundness"></widget></item>
+
+
+  </layout>
+  </item>
+
+<!-- Grid start -->
+<item>
+  <layout class="QHBoxLayout" name="displaySlice">
+
+
+
+<item>
+<spacer name="horizontalSpacer">
+ <property name="orientation">
+  <enum>Qt::Horizontal</enum>
+ </property>
+ <property name="sizeHint" stdset="0">
+  <size>
+   <width>40</width>
+   <height>20</height>
+  </size>
+ </property>
+</spacer>
+</item>
+
+
+
+<!-- Grid start -->
+
+<item><layout class="QVBoxLayout" >
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" name="label_c"><property name="text"><string>Cols</string></property></widget></item>
+</layout></item>
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" name="label_s"><property name="text"><string>Split</string></property></widget></item>
+          <item><widget class="QSpinBox" name="vCols"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+</layout></item>
+
+
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" name="label_s1"><property name="text"><string>Spacing</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vColspacing"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vColspacingMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vColspacingPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vColspacingInch"></widget></item>
+</layout></item>
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" ><property name="text"><string>Width</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_w"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_wMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_wPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_wInch"></widget></item>
+</layout></item>
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" ><property name="text"><string>Total</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_w"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_wMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_wPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_wInch"></widget></item>
+</layout></item>
+
+
+</layout></item>
+
+
+  <item>
+      <widget class="QFrame" name="lineHair5">
+      <property name="frameShape">
+        <enum>QFrame::VLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+
+
+
+<item><layout class="QVBoxLayout" >
+
+
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" name="label_c"><property name="text"><string>Rows</string></property></widget></item>
+</layout></item>
+<item><layout class="QHBoxLayout" >
+
+          <item><widget class="QLabel" name="label_s2"><property name="text"><string>Split</string></property></widget></item>
+          <item><widget class="QSpinBox" name="vRows"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+ 
+</layout></item>
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" name="label_s3"><property name="text"><string>Spacing</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vRowspacing"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vRowspacingMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vRowspacingPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vRowspacingInch"></widget></item>
+</layout></item>
+
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" ><property name="text"><string>Height</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_h"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_hMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_hPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vUnit_hInch"></widget></item>
+</layout></item>
+
+<item><layout class="QHBoxLayout" >
+          <item><widget class="QLabel" ><property name="text"><string>Total</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_h"><property name="alignment"><set>Qt::AlignRight</set></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_hMm"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_hPx"></widget></item>
+          <item><widget class="QDoubleSpinBox" name="vTotal_hInch"></widget></item>
+</layout></item>
+
+
+
+</layout></item>
+
+
+
+
+  </layout>
+</item>
+<!-- Grid end -->
+
+ 
+
+
+   <item>
+      <widget class="QFrame" name="lineHair6">
+      <property name="frameShape">
+        <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+        <number>1</number>
+      </property>
+      </widget>
+  </item>
+
+
+
+
+
+
+
+<item>
+  <layout class="QHBoxLayout" name="displayArtwork">
+    <item>
+      <widget class="QCheckBox" name="checkPreview">
+        <property name="text">
+          <string>Preview</string>
+        </property>
+      </widget>
+    </item>
+
+<!-- Debug -->
+
+<!--
+   <item><widget class="QLabel"><property name="text"><string>Debug:Wpad</string></property></widget></item>
+   <item><widget class="QDoubleSpinBox" name="dbgWpad"></widget></item>
+   <item><widget class="QLabel"><property name="text"><string>Dpad</string></property></widget></item>
+   <item><widget class="QDoubleSpinBox" name="dbgDpad"></widget></item>
+-->
+
+<!-- Debug end -->
+
+    <item>
+      <spacer name="horizontalSpacer">
+        <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+          <size>
+            <width>40</width>
+            <height>20</height>
+          </size>
+        </property>
+      </spacer>
+    </item>
+
+    <item>
+      <widget class="QPushButton" name="infoButton">
+        <property name="text">
+          <string>info</string>
+        </property>
+      </widget>
+    </item>
+  </layout>
+</item>
+
+
+
+
+
+
+
+
+<item>
+  <layout class="QHBoxLayout" name="buttonLayout">
+    <item>
+      <widget class="QPushButton" name="cancelButton">
+        <property name="text">
+          <string>Cancel</string>
+        </property>
+      </widget>
+    </item>
+    <item>
+      <widget class="QPushButton" name="okButton">
+        <property name="text">
+          <string>OK</string>
+        </property>
+        <property name="font">
+          <font>
+            <bold>true</bold>
+            <weight>75</weight>
+          </font>
+        </property>
+      </widget>
+    </item>
+  </layout>
+</item>
+
+
+
+    </layout>
+  </widget>
+  <resources/>
+  <connections/>
+</ui>
