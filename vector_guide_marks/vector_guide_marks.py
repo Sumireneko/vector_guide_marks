@@ -182,18 +182,22 @@ class create_VectorGuidMarksDialog(QDialog):
             "Japan": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3(JIS)", "B4(JIS)", "B5(JIS)","B6(JIS)","B7(JIS)","B8(JIS)","B9(JIS)","__sep__","BusinessCard_JP","Postcard_JP","ShopCard","__sep__", "Tanzaku_B2" "Tanzaku_B3","Shiori","CreditCard_JIS"],
             "Europe": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3", "B4", "B5","B6","B7","B8","B9","__sep__","BusinessCard_EU"],
             "Asia": ["D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","D8(GB)","D9(GB)","__sep__",
-                "Kiku 1-cut", "Kiku 2-cut", "Kiku 4-cut", "Kiku 8-cut", "Kiku 16-cut", "Kiku 32-cut","__sep__",
+                "Kiku 1-cut", "Kiku 2-cut", "Kiku 4-cut", "Kiku 8-cut", "Kiku 16-cut", "Kiku 32-cut","__sep__","Kikuban-Book","Shiroku-Book",
                 "Shiroku 1-fold", "Shiroku 2-fold", "Shiroku 4-fold", "Shiroku 8-fold", "Shiroku 16-fold", "Shiroku 32-fold"],
             "India": ["Foolscap", "Legal_IN", "Demi", "Quarto"],
             "Cards": ["TradingCard_Small","TradingCard_Standard","__sep__","Porker_Size","Bridge_Size","__sep__","BusinessCard_US","BusinessCard_EU","BusinessCard_JP","__sep__","Archana_Size"],
             "Refill": ["HBxWA5", "Bible", "Narrow", "Mini6", "M5", "Mini5"],
             "Photo": [
-                "Photo_L", "Photo_2L", "Photo_KG", "Photo_6P", "Photo_4P", "Photo_8P","__sep__",
+                "Photo_L", "Photo_2L", "Photo_KG",  "Photo_HV", "Photo_PA",  "Photo_6P", "Photo_4P","Photo_4PW", "Photo_8P","__sep__",
                 "Photo_4x6in", "Photo_5x7in", "Photo_8x10in", "Photo_8.5x11in", "Photo_11x14in", "Photo_16x20in", "Photo_20x24in","__sep__",
                 "Photo_10x15cm", "Photo_13x18cm", "Photo_15x20cm", "Photo_18x24cm", "Photo_20x30cm", "Photo_30x40cm"
             ],
-            "Envelope": ["C4","C5","C6","__sep__","Kaku0", "Kaku2", "Kaku3", "Chou2", "Chou3", "Chou4"],
-
+            "Envelope": [
+                "C4","C5","C6","__sep__", "Lady Grey", "Thompson Standard", "Besselheim", "Carrs", "Diplomat", "Willow", "Personal", 
+                "Monarch", "A long","__sep__",
+                "PRC1", "PRC2", "PRC3", "PRC4", "PRC6", "PRC7", "PRC8" ,"__sep__",
+                "Kaku0", "Kaku2", "Kaku3","Kaku4","Kaku5","Kaku7", "Chou2", "Chou3", "Chou4"
+            ],
             "Pixel":[
                 "32 x 32px","64 x 64px","88 x 88px", "176 x 176px","240 x 240px","480 x 480px","544 x 544px",
                 "600 x 600px","720 x 720px","840 x 840px","960 x 960px","992 x 992px","1080 x 1080px","1200 x 1200px",

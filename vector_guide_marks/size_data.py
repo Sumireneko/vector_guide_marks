@@ -36,9 +36,13 @@ sizes = {
     "Photo_2L": (127, 178), # Two sizes of L size 
 
     "Photo_KG": (102, 152), # KG size
+    "Photo_HV": (89, 158), 
+    "Photo_PA": (89, 254), 
+
     "Photo_6P": (203, 254), # For portrait
     "Photo_4P": (254, 305), # For Large framed photo
     "Photo_8P": (165, 216), # For bit small framed photo
+    "Photo_4PW": (254, 366),
 
     "Photo_4x6in": (101.6, 152.4),     # US standard  1inch =  25.4 mm
     "Photo_5x7in": (127, 177.8),       # For framed photo
@@ -59,12 +63,17 @@ sizes = {
     "C5": (162, 229),   # For non fold A5 or 2 folded A4
     "C6": (114, 162),   # For non fold A6 or 4 folded A4
 
-    "Chou3": (120, 235), 
-    "Chou4": (90, 205),  
-    "Chou2": (119, 277), 
+    "Chou2": (119, 277),
+    "Chou3": (120, 235),
+    "Chou4": (90, 205),
+
+    "Kaku0": (287, 382), 
     "Kaku2": (240, 332), 
     "Kaku3": (216, 277), 
-    "Kaku0": (287, 382), 
+    "Kaku4": (197, 267), 
+    "Kaku5": (190, 240),
+    "Kaku7": (142, 205),
+    "Kaku8": (119, 197),
 
     "Kiku 1-cut": (636, 939),
     "Kiku 2-cut": (469, 636),
@@ -73,12 +82,35 @@ sizes = {
     "Kiku 16-cut": (159, 234),
     "Kiku 32-cut": (117, 159),
 
+    "Shiroku-Book": (128, 188),
+    "Kikuban-Book": (152, 218),
+
     "Shiroku 1-fold": (788, 1091),
     "Shiroku 2-fold": (545, 788),
     "Shiroku 4-fold": (394, 545),
     "Shiroku 8-fold": (273, 394),
     "Shiroku 16-fold": (197, 273),
     "Shiroku 32-fold": (136, 197),
+
+
+    "Lady Grey": (111, 146),
+    "Thompson Standard": (121, 165),
+    "Besselheim": (133, 184),
+    "Carrs": (140, 206),
+    "Diplomat": (146, 222),
+    "Willow": (152, 241),
+    "Personal": (92.1, 165),
+    "Monarch": (98.4, 191),
+    "A long": (98.4, 225),
+
+
+    "PRC1": (102, 165),
+    "PRC2": (102, 176),
+    "PRC3": (125, 176),
+    "PRC4": (110, 208),
+    "PRC6": (120, 320),
+    "PRC7": (160, 230),
+    "PRC8": (120, 309),
 
     "Foolscap": (203, 330),      # for file 
     "Legal_IN": (215, 345),      # legal size for India 
@@ -128,8 +160,8 @@ sizes = {
 
 
 fixed_sizes = [
-    "A1", "A2", "A3", "A4", "A5", "A6","A7","__sep__",
-    "B1", "B2", "B3", "B4", "B5", "B6","B8","__sep__",
+    "A1", "A2", "A3", "A4", "A5", "A6","A7","A8","A9","__sep__",
+    "B1", "B2", "B3", "B4", "B5", "B6","B7","B8","B9","__sep__",
     "B1(JIS)", "B2(JIS)", "B3(JIS)", "B4(JIS)", "B5(JIS)", "B6(JIS)","__sep__",
     "D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","__sep__"
 ]
