@@ -1,5 +1,5 @@
 ## VectorGuideMarks plug-in - Trim,Grid and Dimension
-v0.5  
+v0.54  
 This plugin can:
 
 - This plugin create trimmark (crop-marks) on selected **Vector shapes**
