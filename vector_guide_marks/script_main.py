@@ -105,12 +105,12 @@ params = {
     'roundness': 0,
 
     'unit_cut_guide':False,
+    'mod_grid_guide':False,
+
     'preview':True
 
 }
 """
-
-
 
 
 
@@ -573,6 +573,9 @@ def draw_rect_grid(params, group, start_x, start_y, total_width, total_height,
     radius =  params['roundness'] if params['rounded_corners'] is True else 0
 
     gd ="";Lk=3*PT_EQ_1MM
+
+    if params['mod_grid_guide']:Lk=6*PT_EQ_1MM
+
     last_x = start_x+total_width*PT_EQ_1MM
     last_y = start_y+total_height*PT_EQ_1MM
 
@@ -588,11 +591,11 @@ def draw_rect_grid(params, group, start_x, start_y, total_width, total_height,
             # Grid unit
             add_rect(group, px, py, rect_width, rect_height, stroke, color,radius)
             # Unit cut guide
-            if params['unit_cut_guide']:
+            if params['unit_cut_guide'] or params['mod_grid_guide']:
                 gd=add_unit_cut_guide(gd, row, col, px, py, start_x, start_y, last_x, last_y, h_padding, v_padding, Lk)
 
     if len(gd)>0:
-        gd=gd+add_final_unit_cut_guides(gd, rows, cols, start_x, start_y, rect_width, rect_height, h_padding, v_padding, last_x, last_y, Lk)
+        gd=add_final_unit_cut_guides(gd, rows, cols, start_x, start_y, rect_width, rect_height, h_padding, v_padding, last_x, last_y, Lk)
         add_path(group, gd , 0.35,"green")
 
 
@@ -614,6 +617,20 @@ def handle_capa_fill(capa_flg, capa_flg_col, capa_flg_row, row, col, group, px, 
 
 
 def add_unit_cut_guide(gd, row, col, px, py, start_x, start_y, last_x, last_y, h_padding, v_padding, Lk):
+
+    if Lk > 4*PT_EQ_1MM:# mod_grid_guide
+        # col 
+        if row == 0 and col > -1:
+            # gd += f"M{px - h_padding * 0.5} {start_y - Lk * 2}";gd += f"L{px - h_padding * 0.5} {last_y + Lk * 2}"
+            gd += f"M{px - h_padding * 0} {start_y - Lk * 2} L{px - h_padding * 0} {last_y + Lk * 2}"
+            if h_padding > 0: gd += f"M{px - h_padding * 1} {start_y - Lk * 2} L{px - h_padding * 1} {last_y + Lk * 2}"
+        # row 
+        if col == 0 and row > -1:
+            #gd += f"M{start_x - Lk * 2} {py - v_padding * 0.5}"gd += f"L{last_x + Lk * 2} {py - v_padding * 0.5}"
+            gd += f"M{start_x - Lk * 2} {py - v_padding * 0} L{last_x + Lk * 2} {py - v_padding * 0}"
+            if v_padding > 0:gd += f"M{start_x - Lk * 2} {py - v_padding * 1} L{last_x + Lk * 2} {py - v_padding * 1}"
+
+        return gd
     # col 
     if row == 0 and col > -1:
         gd += f"M{px - h_padding * 0.5} {start_y - Lk} L{px - h_padding * 0.5} {start_y - Lk * 2}"
@@ -625,13 +642,28 @@ def add_unit_cut_guide(gd, row, col, px, py, start_x, start_y, last_x, last_y, h
     return gd
 
 def add_final_unit_cut_guides(gd, rows, cols, start_x, start_y, rect_width, rect_height, h_padding, v_padding, last_x, last_y, Lk):
-    # last vertical
+
     px_last = start_x + (cols ) * (rect_width + h_padding)
+    py_last = start_y + (rows ) * (rect_height + v_padding)
+
+    if Lk > 4*PT_EQ_1MM:# mod_grid_guide
+        
+        ofix = 0# if padding 0.5
+        # last vertical
+        gd += f"M{px_last - h_padding * ofix} {start_y - Lk * 2}"
+        gd += f"L{px_last - h_padding * ofix} {last_y  + Lk * 2}"
+    
+        # last horizontal
+        gd += f"M{start_x - Lk * 2} {py_last - v_padding * ofix}"
+        gd += f"L{last_x  + Lk * 2} {py_last - v_padding * ofix}"
+    
+        return gd
+
+    # last vertical
     gd += f"M{px_last -  h_padding * 0.5} {start_y - Lk} L{px_last - h_padding * 0.5} {start_y - Lk * 2}"
     gd += f"M{px_last -  h_padding * 0.5} {last_y  + Lk} L{px_last - h_padding * 0.5} {last_y  + Lk * 2}"
 
     # last horizontal
-    py_last = start_y + (rows ) * (rect_height + v_padding)
     gd += f"M{start_x - Lk} {py_last - v_padding * 0.5} L{start_x - Lk * 2} {py_last - v_padding * 0.5}"
     gd += f"M{last_x  + Lk} {py_last - v_padding * 0.5} L{last_x  + Lk * 2} {py_last - v_padding * 0.5}"
 

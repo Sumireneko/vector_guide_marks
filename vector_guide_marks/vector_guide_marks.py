@@ -118,6 +118,8 @@ params = {
     'roundness': 0,
 
     'unit_cut_guide':False,
+    'mod_grid_guide':False,
+
     'preview':True
 
 }
@@ -183,8 +185,8 @@ class create_VectorGuidMarksDialog(QDialog):
             "Europe": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3", "B4", "B5","B6","B7","B8","B9","__sep__","BusinessCard_EU"],
             "Asia": ["D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","D8(GB)","D9(GB)","__sep__",
                 "Kiku 1-cut", "Kiku 2-cut", "Kiku 4-cut", "Kiku 8-cut", "Kiku 16-cut", "Kiku 32-cut","__sep__","Kikuban-Book","Shiroku-Book",
-                "Shiroku 1-fold", "Shiroku 2-fold", "Shiroku 4-fold", "Shiroku 8-fold", "Shiroku 16-fold", "Shiroku 32-fold"],
-            "India": ["Foolscap", "Legal_IN", "Demi", "Quarto"],
+                "Shiroku 1-cut", "Shiroku 2-cut", "Shiroku 4-cut", "Shiroku 8-cut", "Shiroku 16-cut", "Shiroku 32-cut"],
+
             "Cards": ["TradingCard_Small","TradingCard_Standard","__sep__","Porker_Size","Bridge_Size","__sep__","BusinessCard_US","BusinessCard_EU","BusinessCard_JP","__sep__","Archana_Size"],
             "Refill": ["HBxWA5", "Bible", "Narrow", "Mini6", "M5", "Mini5"],
             "Photo": [
@@ -194,9 +196,8 @@ class create_VectorGuidMarksDialog(QDialog):
             ],
             "Envelope": [
                 "C4","C5","C6","__sep__", "Lady Grey", "Thompson Standard", "Besselheim", "Carrs", "Diplomat", "Willow", "Personal", 
-                "Monarch", "A long","__sep__",
-                "PRC1", "PRC2", "PRC3", "PRC4", "PRC6", "PRC7", "PRC8" ,"__sep__",
-                "Kaku0", "Kaku2", "Kaku3","Kaku4","Kaku5","Kaku7", "Chou2", "Chou3", "Chou4"
+                "Monarch", "A long","__sep__","Envelope No.6","Envelope No.9","Envelope No.10","Envelope A2","6x9","9x12","__sep__",
+                "Kaku0", "Kaku2", "Kaku3","Kaku4","Kaku5","Kaku7", "Naga2", "Naga3", "Naga4","Yo 2","Yo 4","Yo 6",
             ],
             "Pixel":[
                 "32 x 32px","64 x 64px","88 x 88px", "176 x 176px","240 x 240px","480 x 480px","544 x 544px",
@@ -328,6 +329,17 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkSlice.stateChanged.connect(
             lambda state: self.on_value_changed("slice", state ==  Qt.Checked)
         )
+
+
+        # FGrid checkbox
+        self.chkAddGGide = self.findChild(QCheckBox, "chkAddGGide")
+        self.chkAddGGide.setChecked(params['mod_grid_guide'])  # make chaked
+        self.chkAddGGide.stateChanged.connect(
+            lambda state: self.on_value_changed("mod_grid_guide", state ==  Qt.Checked)
+        )
+
+
+
 
         # Text capacity checkbox
         self.chkTxtCapa = self.findChild(QCheckBox, "chkTxtCapa")

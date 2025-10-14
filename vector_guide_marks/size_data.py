@@ -63,9 +63,16 @@ sizes = {
     "C5": (162, 229),   # For non fold A5 or 2 folded A4
     "C6": (114, 162),   # For non fold A6 or 4 folded A4
 
-    "Chou2": (119, 277),
-    "Chou3": (120, 235),
-    "Chou4": (90, 205),
+    "Envelope No.6": (92, 165),
+    "Envelope No.9": (98, 225),
+    "Envelope No.10": (105, 241),
+    "Envelope A2": (111, 146),
+    "6x9": (152, 229),
+    "9x12": (229, 305),
+
+    "Naga2": (119, 277),
+    "Naga3": (120, 235),
+    "Naga4": (90, 205),
 
     "Kaku0": (287, 382), 
     "Kaku2": (240, 332), 
@@ -74,6 +81,10 @@ sizes = {
     "Kaku5": (190, 240),
     "Kaku7": (142, 205),
     "Kaku8": (119, 197),
+
+    "Yo 2": (114, 162),
+    "Yo 4": (105, 235),
+    "Yo 6": (98, 190),
 
     "Kiku 1-cut": (636, 939),
     "Kiku 2-cut": (469, 636),
@@ -85,12 +96,12 @@ sizes = {
     "Shiroku-Book": (128, 188),
     "Kikuban-Book": (152, 218),
 
-    "Shiroku 1-fold": (788, 1091),
-    "Shiroku 2-fold": (545, 788),
-    "Shiroku 4-fold": (394, 545),
-    "Shiroku 8-fold": (273, 394),
-    "Shiroku 16-fold": (197, 273),
-    "Shiroku 32-fold": (136, 197),
+    "Shiroku 1-cut": (788, 1091),
+    "Shiroku 2-cut": (545, 788),
+    "Shiroku 4-cut": (394, 545),
+    "Shiroku 8-cut": (273, 394),
+    "Shiroku 16-cut": (197, 273),
+    "Shiroku 32-cut": (136, 197),
 
 
     "Lady Grey": (111, 146),
@@ -103,14 +114,6 @@ sizes = {
     "Monarch": (98.4, 191),
     "A long": (98.4, 225),
 
-
-    "PRC1": (102, 165),
-    "PRC2": (102, 176),
-    "PRC3": (125, 176),
-    "PRC4": (110, 208),
-    "PRC6": (120, 320),
-    "PRC7": (160, 230),
-    "PRC8": (120, 309),
 
     "Foolscap": (203, 330),      # for file 
     "Legal_IN": (215, 345),      # legal size for India 

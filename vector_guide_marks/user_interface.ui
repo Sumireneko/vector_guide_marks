@@ -258,6 +258,30 @@
       </widget>
     </item>
 
+    <item>
+      <widget class="QCheckBox" name="chkAddGGide">
+        <property name="text">
+          <string>add guide</string>
+        </property>
+      </widget>
+    </item>
+
+<item>
+<spacer name="horizontalSpacer_m">
+ <property name="orientation">
+  <enum>Qt::Horizontal</enum>
+ </property>
+ <property name="sizeHint" stdset="0">
+  <size>
+   <width>70</width>
+   <height>20</height>
+  </size>
+ </property>
+</spacer>
+</item>
+
+
+
   </layout>
 </item>
 
