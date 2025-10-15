@@ -1,6 +1,6 @@
-# ======================================
-# Krita Vector Guide Marks plug-in (GUI)
-# ======================================
+# ================================================
+# Krita Vector Guide Marks plug-in (GUI) v0.55
+# ================================================
 # Copyright (C) 2025 L.Sumireneko.M
 # This program is free software: you can redistribute it and/or modify it under the 
 # terms of the GNU General Public License as published by the Free Software Foundation,

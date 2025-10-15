@@ -650,13 +650,16 @@ def add_final_unit_cut_guides(gd, rows, cols, start_x, start_y, rect_width, rect
         
         ofix = 0# if padding 0.5
         # last vertical
-        gd += f"M{px_last - h_padding * ofix} {start_y - Lk * 2}"
-        gd += f"L{px_last - h_padding * ofix} {last_y  + Lk * 2}"
-    
+        gd += f"M{px_last - h_padding * ofix} {start_y - Lk * 2} L{px_last - h_padding * ofix} {last_y  + Lk * 2}"
         # last horizontal
-        gd += f"M{start_x - Lk * 2} {py_last - v_padding * ofix}"
-        gd += f"L{last_x  + Lk * 2} {py_last - v_padding * ofix}"
-    
+        gd += f"M{start_x - Lk * 2} {py_last - v_padding * ofix} L{last_x  + Lk * 2} {py_last - v_padding * ofix}"
+
+        if h_padding>0:
+            ofix=1.0
+            gd += f"M{px_last - h_padding * ofix} {start_y - Lk * 2} L{px_last - h_padding * ofix} {last_y  + Lk * 2}"
+        if v_padding>0:
+            ofix=1.0
+            gd += f"M{start_x - Lk * 2} {py_last - v_padding * ofix} L{last_x  + Lk * 2} {py_last - v_padding * ofix}"
         return gd
 
     # last vertical

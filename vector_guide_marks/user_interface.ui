@@ -261,7 +261,7 @@
     <item>
       <widget class="QCheckBox" name="chkAddGGide">
         <property name="text">
-          <string>add guide</string>
+          <string>add Guides</string>
         </property>
       </widget>
     </item>
