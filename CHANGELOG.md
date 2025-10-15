@@ -1,4 +1,6 @@
 ## VectorGuideMarks plug-in -Chage Log
+- 2025.10.15 v0.55 
+- BugFixed: The issue that the last lines are not draw when Grid cut guide with spacings.
 - 2025.10.14 v0.54  Typo correction and size adjustment,Add grid guide  
   - BugFixed: The issue that Grid cut guide or Grid guide are drawing two times.
 - v0.51  Typo correction and size adjustment,Small update
