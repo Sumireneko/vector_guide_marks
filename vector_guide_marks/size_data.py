@@ -154,13 +154,7 @@ sizes = {
     "1080 x 1920px": ( 91.44 , 162.56 ) ,  
     "1200 x 1200px": ( 101.60 , 101.60 ) , 
     "1200 x 1600px": ( 101.60 , 135.47 ) , 
-
-
-
 }
-
-
-
 
 fixed_sizes = [
     "A1", "A2", "A3", "A4", "A5", "A6","A7","A8","A9","__sep__",
@@ -168,3 +162,47 @@ fixed_sizes = [
     "B1(JIS)", "B2(JIS)", "B3(JIS)", "B4(JIS)", "B5(JIS)", "B6(JIS)","__sep__",
     "D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","__sep__"
 ]
+
+# ---------------
+#  Menu Entries
+# ---------------
+preset_menu_entry = [
+    "All","__sep__","US","Europe","Asia","Japan","__sep__",
+    "Cards","Refill","Photo","Envelope","__sep__","Pixel","__sep__",
+    "Free"
+]
+
+paper_menu_entry = {
+    "US": ["Ledger_US", "Tabloid_US", "Legal_US", "Letter_US", "Executive_US", "Statement_US","__sep__","ANSI_E", "ANSI_D", "ANSI_C", "ANSI_B", "ANSI_A"],
+    "Japan": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3(JIS)", "B4(JIS)", "B5(JIS)","B6(JIS)","B7(JIS)","B8(JIS)","B9(JIS)","__sep__","BusinessCard_JP","Postcard_JP","ShopCard","__sep__", "Tanzaku_B2" "Tanzaku_B3","Shiori","CreditCard_JIS"],
+    "Europe": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3", "B4", "B5","B6","B7","B8","B9","__sep__","BusinessCard_EU"],
+    "Asia": ["D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","D8(GB)","D9(GB)","__sep__",
+        "Kiku 1-cut", "Kiku 2-cut", "Kiku 4-cut", "Kiku 8-cut", "Kiku 16-cut", "Kiku 32-cut","__sep__","Kikuban-Book","Shiroku-Book",
+        "Shiroku 1-cut", "Shiroku 2-cut", "Shiroku 4-cut", "Shiroku 8-cut", "Shiroku 16-cut", "Shiroku 32-cut"],
+
+    "Cards": ["TradingCard_Small","TradingCard_Standard","__sep__","Porker_Size","Bridge_Size","__sep__","BusinessCard_US","BusinessCard_EU","BusinessCard_JP","__sep__","Archana_Size"],
+    "Refill": ["HBxWA5", "Bible", "Narrow", "Mini6", "M5", "Mini5"],
+    "Photo": [
+        "Photo_L", "Photo_2L", "Photo_KG",  "Photo_HV", "Photo_PA",  "Photo_6P", "Photo_4P","Photo_4PW", "Photo_8P","__sep__",
+        "Photo_4x6in", "Photo_5x7in", "Photo_8x10in", "Photo_8.5x11in", "Photo_11x14in", "Photo_16x20in", "Photo_20x24in","__sep__",
+        "Photo_10x15cm", "Photo_13x18cm", "Photo_15x20cm", "Photo_18x24cm", "Photo_20x30cm", "Photo_30x40cm"
+    ],
+    "Envelope": [
+        "C4","C5","C6","__sep__", "Lady Grey", "Thompson Standard", "Besselheim", "Carrs", "Diplomat", "Willow", "Personal", 
+        "Monarch", "A long","__sep__","Envelope No.6","Envelope No.9","Envelope No.10","Envelope A2","6x9","9x12","__sep__",
+        "Kaku0", "Kaku2", "Kaku3","Kaku4","Kaku5","Kaku7", "Naga2", "Naga3", "Naga4","Yo 2","Yo 4","Yo 6",
+    ],
+    "Pixel":[
+        "32 x 32px","64 x 64px","88 x 88px", "176 x 176px","240 x 240px","480 x 480px","544 x 544px",
+        "600 x 600px","720 x 720px","840 x 840px","960 x 960px","992 x 992px","1080 x 1080px","1200 x 1200px",
+        "1350 x 1350px","1440 x 1440px","1600 x 1600px","1920 x 1920px","__sep__",
+        "240 x 480px","480 x 600px","600 x 720px","544 x 720px","600 x 960px","720 x 960px","840 x 1200px","960 x 1440px","992 x 1440px",
+        "__sep__",
+        "1080 x 1350px","1080 x 1920px","1200 x 1200px","1200 x 1600px"
+
+    ],
+
+    "Free": ["Sizes"],
+
+    "All": []
+}
