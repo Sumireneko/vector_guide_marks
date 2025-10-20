@@ -1,5 +1,10 @@
 ## VectorGuideMarks plug-in - Trim,Grid and Dimension
 v0.56
+
+
+<img width="256" height="256" alt="vector_guide_marks-logo" src="https://github.com/user-attachments/assets/f83fc520-5925-4685-a5a8-199297223435" />
+
+
 This plugin can:
 
 - This plugin create trimmark (crop-marks) on selected **Vector shapes**
@@ -25,8 +30,6 @@ This plugin can:
 - [Bleed (Printing)](https://en.wikipedia.org/wiki/Bleed_(printing))  
 - [トンボ (印刷)](https://ja.wikipedia.org/wiki/トンボ_(印刷))
 
-
-<img width="256" height="256" alt="vector_guide_marks-logo" src="https://github.com/user-attachments/assets/f83fc520-5925-4685-a5a8-199297223435" />
 
 ### Preset
 
