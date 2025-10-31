@@ -8,16 +8,17 @@
 	<body>
 <!-- Vector Guide Marks plug-in by L.Sumireneko.M -->
 <h2>Vector Guide Marks - Trim,Grid and Dimension</h2>
-v0.56<br>
+v0.58<br>
 This plugin can
  <ul>
 <li>This plugin create trimmark (crop-marks) on selected <b> Vector shapes</b>
 <li>Also make a grid for a layout,a comic-strip,a chart or text.
 <li>It aims to produce output SVG that can be edited in Affinity Designer,InkScape and Adobe Illustrator.
 <li>Unit=mm/px/inch,Bleed = 3mm
-<li>Support Dimension Lines
+<li>Support Dimension Lines for WYSIWIG
 <li>Support Modular Grid (Also rounded rectangles)
-<li>Display Text capacity information(for Asian typesetting)
+<li>Display Text capacity information(for Asian typesetting, Font size and Tracking unit = pt)
+
  </ul>
 Note：This plugin offers dimensional accuracy up to two decimal places and is not recommended for high-precision applications(CAD,product etc).  
 
@@ -43,7 +44,7 @@ Note：This plugin offers dimensional accuracy up to two decimal places and is n
 <ul>
 <li>All:All Preset
 <li>US 
-<li>Europe
+<li>Europ
 <li>Asia
 <li>Japan
 <li>Card
@@ -52,14 +53,13 @@ Note：This plugin offers dimensional accuracy up to two decimal places and is n
 <li>Envelope
 <li>Pixel
 <li>Free : Make the marks on selected shapes
-<li>
 </ul>
 <h3>Direction</h3>
-Vertical,Horizontal,Frame
+Vertical(Portrait) and Horizontal(LandScape)
 
 <h3>Grid</h3>
 Craate grid for multipurpose feature<br>
-It can set numbers of Row and Col,and their spacing<br>
+It can set numbers of Row and Column,and their spacing<br>
 
 <b>Ignore shape mode</b><br>
 When ignore_shape no-checked(default)
@@ -75,6 +75,16 @@ When ignore_shape checked
 <li>Changing unit, division, or total size directly affects the drawing size.
 <li>This mode is ideal for custom layouts or flexible grid configurations.
 <li>The shape size is ignored, allowing free adjustment of all parameters.
+</ul>
+
+<h3>Text capacity (for Asian typesetting)</h3>
+<ul>
+<li>This feature is simulate what numbers of words can put inside of the frame.<br>
+<li>In this mode,Grid color become light blue,and  filled inside per 10 glyph(rectangles).<br>
+<li>The text direction decided by row spacing < col spacing or row spacing < col spacing<br>
+<ul>
+<li>Characters per line × number of lines,and the total count, Font size(pt),Line spacing(pt),Tracking(pt)
+</ul>
 </ul>
 
 <h3>Info</h3>
@@ -174,12 +184,12 @@ A following info displayed
 <li> Kiku 8-cut: (234.02mm x 318mm)</li>
 <li> Kiku 16-cut: (159.01mm x 234mm)</li>
 <li> Kiku 32-cut: (117.01mm x 159mm)</li>
-<li> Shiroku 1-cut: (788.05mm x 1091mm)</li>
-<li> Shiroku 2-cut: (545.03mm x 788mm)</li>
-<li> Shiroku 4-cut: (394.02mm x 545mm)</li>
-<li> Shiroku 8-cut: (273.02mm x 394mm)</li>
-<li> Shiroku 16-cut: (197.01mm x 273mm)</li>
-<li> Shiroku 32-cut: (136.01mm x 197mm)</li>
+<li> Shiroku 1-fold: (788.05mm x 1091mm)</li>
+<li> Shiroku 2-fold: (545.03mm x 788mm)</li>
+<li> Shiroku 4-fold: (394.02mm x 545mm)</li>
+<li> Shiroku 8-fold: (273.02mm x 394mm)</li>
+<li> Shiroku 16-fold: (197.01mm x 273mm)</li>
+<li> Shiroku 32-fold: (136.01mm x 197mm)</li>
 <li> Foolscap: (203.01mm x 330mm)</li>
 <li> Legal_IN: (215.01mm x 345mm)</li>
 <li> Demi: (445.03mm x 572mm)

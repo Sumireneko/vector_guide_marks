@@ -441,17 +441,39 @@ def draw_cropmarks(shape_count,doc,trans,params,x,y,width,height,prefix):
     crop_style = params.get("crop_style", "default")
 
 
-    prop3=""
+    prop3=prop4=prop5=""
     if params['txt_capa']==True:
         vc_spl = params['vcol_split'];vr_spl=params['vrow_split']
-        if params['vcol_spc']==0 and params['vrow_spc']>0:#params['size_dir']=="vertical"
+        
+        uniw_pt = round(params['vunit_w']*2.8346,2);
+        unih_pt = round(params['vunit_h']*2.8346,2);
+
+        sp_rlh_pt = round(params['vrow_spc']*2.8346,2);
+        sp_clw_pt = round(params['vcol_spc']*2.8346,2);
+
+        # vertical text
+        if params['vcol_spc']>=0 and params['vrow_spc']>params['vcol_spc']:#params['size_dir']=="vertical"
             prop3 = f"{vc_spl}W x {vr_spl}L = {vr_spl*vc_spl}"
-        elif params['vrow_spc']==0 and params['vcol_spc']>0:#params['size_dir']=="horizontal"
+            prop4 = f"•Font size:({uniw_pt} x {unih_pt} pt)"
+            prop5 = f"•Line-spacing: { sp_rlh_pt } pt ,Tracking: { sp_clw_pt } pt"
+
+        # horizontal text
+        elif params['vrow_spc']>=0 and params['vcol_spc']>params['vrow_spc']:#params['size_dir']=="horizontal"
             prop3 = f"{vr_spl}W x {vc_spl}L = {vr_spl*vc_spl}"
+            prop4 = f"•Font size:({uniw_pt} x {unih_pt} pt)"
+            prop5 = f"•Line-spacing: { sp_clw_pt } pt ,Tracking: { sp_rlh_pt } pt"
 
         swx3 = S(x)
-        swy3 = S(bottom+L*0.15)
+        swy3 = S(bottom+L*0.45)
         add_text(tonbo_group, swx3, swy3, prop3 ,"Arial",fsize*1.5,fill="#0097E1")# text capacity
+
+        swx4 = S(x)
+        swy4 = S(bottom+L*0.45+fsize*1.4)
+        add_text(tonbo_group, swx4, swy4, prop4 ,"Arial",fsize*1.0,fill="#0057A1")# Font info
+
+        swx5 = S(x)
+        swy5 = S(bottom+L*0.45+fsize*(1.4+1.0))
+        add_text(tonbo_group, swx5, swy5, prop5 ,"Arial",fsize*1.0,fill="#0047A1")# Line and spacing ifo
 
 
 
@@ -567,8 +589,16 @@ def draw_rect_grid(params, group, start_x, start_y, total_width, total_height,
 
     # text capacity 
     cflg = params['txt_capa']
-    cflg_col = True if cflg and params['vcol_spc']==0 and params['vrow_spc']>0 else False
-    cflg_row = True if cflg and params['vrow_spc']==0 and params['vcol_spc']>0 else False
+
+    ccflg = rrflg = False
+
+    ccflg = params['vcol_spc']>=0 and params['vrow_spc']>params['vcol_spc']
+    rrflg = params['vrow_spc']>=0 and params['vcol_spc']>params['vrow_spc']
+
+    cflg_col = True if cflg and ccflg else False
+    cflg_row = True if cflg and rrflg else False
+
+
     if cflg:color = "#0097E1"
     radius =  params['roundness'] if params['rounded_corners'] is True else 0
 
