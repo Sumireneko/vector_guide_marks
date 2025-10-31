@@ -1,5 +1,5 @@
 ## VectorGuideMarks plug-in - Trim,Grid and Dimension
-v0.56
+v0.58
 
 
 <img width="256" height="256" alt="vector_guide_marks-logo" src="https://github.com/user-attachments/assets/f83fc520-5925-4685-a5a8-199297223435" />
