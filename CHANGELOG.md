@@ -1,8 +1,11 @@
 ## VectorGuideMarks plug-in -Chage Log
+- 205.10.31 v0.58
+  - The conditions for the appearance of the 10 count marker have been relaxed. Previously, it only appeared when the space was 0, but from now on, the smaller of the Row and Column space values ​​will determine whether the text is written vertically or horizontally.
+  - Additionally, information such as line spacing (LineSpacing), character spacing (Tracking), and font size is displayed in the unit Pt, which is commonly used in DTP.
 - 2025.10.17 v0.56
- - Move menu data to size_data.py 
+  - Move menu data to size_data.py 
 - 2025.10.15 v0.55 
- - BugFixed: The issue that the last lines are not draw when Grid cut guide with spacings.
+  - BugFixed: The issue that the last lines are not draw when Grid cut guide with spacings.
 - 2025.10.14 v0.54  Typo correction and size adjustment,Add grid guide  
   - BugFixed: The issue that Grid cut guide or Grid guide are drawing two times.
 - v0.51  Typo correction and size adjustment,Small update
