@@ -1,7 +1,7 @@
 ## VectorGuideMarks plug-in -Chage Log
-- 205.11.01 v0.581
+- 2025.11.01 v0.581
   - Fixed a issue that some grid guide not appear when 10 count marker grid in text capacity mode
-- 205.10.31 v0.58
+- 2025.10.31 v0.58
   - The conditions for the appearance of the 10 count marker have been relaxed. Previously, it only appeared when the space was 0, but from now on, the smaller of the Row and Column space values ​​will determine whether the text is written vertically or horizontally.
   - Additionally, information such as line spacing (LineSpacing), character spacing (Tracking), and font size is displayed in the unit Pt, which is commonly used in DTP.
 - 2025.10.17 v0.56
