@@ -617,9 +617,11 @@ def draw_rect_grid(params, group, start_x, start_y, total_width, total_height,
             fillcolor=""
             # Text capacity
             capa = handle_capa_fill(cflg, cflg_col, cflg_row, row, col, group, px, py, rect_width, rect_height, stroke, color, radius)
-            if capa==True:continue
-            # Grid unit
-            add_rect(group, px, py, rect_width, rect_height, stroke, color,radius)
+
+            # Grid Unit(Main routine)
+            if capa==False:
+                add_rect(group, px, py, rect_width, rect_height, stroke, color,radius)
+
             # Unit cut guide
             if params['unit_cut_guide'] or params['mod_grid_guide']:
                 gd=add_unit_cut_guide(gd, row, col, px, py, start_x, start_y, last_x, last_y, h_padding, v_padding, Lk)
