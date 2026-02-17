@@ -1,5 +1,5 @@
 # ================================================
-# Krita Vector Guide Marks plug-in (GUI) v0.581
+# Krita Vector Guide Marks plug-in (GUI) v0.60
 # ================================================
 # Copyright (C) 2025 L.Sumireneko.M
 # This program is free software: you can redistribute it and/or modify it under the 
@@ -12,32 +12,22 @@
 
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>. 
+
 from functools import partial
 import krita
 import os
+from .qt_compat import SafeQtWidgets as QtWidgets, QtCore, QtGui
+from .qt_compat import (
+    qt_major, qt_exec, qt_load_ui,qt_event, QC, uic,
+    QObject, QEvent, QTimer, QSignalBlocker, pyqtSignal,
+    QApplication, QDialog, QTextEdit, QVBoxLayout, QPushButton, 
+    QRadioButton, QButtonGroup,QWidget,QLabel,QComboBox,
+    QTransform, QIntValidator,QCheckBox,QSpinBox,QDoubleSpinBox
+)
 
-try:
-    if int(krita.qVersion().split('.')[0]) == 5:
-        raise
-    from PyQt6 import uic
-    from PyQt6.QtCore import QObject, QEvent, QTimer, QSignalBlocker, pyqtSignal
-    from PyQt6.QtWidgets import (
-        QApplication, QDialog, QTextEdit, QVBoxLayout, QPushButton, QRadioButton, QButtonGroup
-    )
-    from PyQt6.QtGui import QTransform
-    from PyQt6.QtGui import QIntValidator
-except:
-    from PyQt5 import uic
-    from PyQt5.QtCore import QObject, QEvent, QTimer, QSignalBlocker, pyqtSignal
-    from PyQt5.QtWidgets import (
-        QApplication, QDialog, QTextEdit, QVBoxLayout, QPushButton, QRadioButton, QButtonGroup
-    )
-    from PyQt5.QtGui import QTransform
-    from PyQt5.QtGui import QIntValidator
 
-from krita import *
 from .size_data import sizes,fixed_sizes,preset_menu_entry,paper_menu_entry
-from . import script_main
+from .import script_main
 
 ac_color = "#CCCCCC"
 is_dark = False
@@ -156,7 +146,7 @@ class LogWindow(QDialog):
 
 class WheelBlocker(QObject):
     def eventFilter(self, obj, event):
-        return event.type() == QEvent.Wheel
+        return event.type() == qt_event("Wheel")
 
 class create_VectorGuidMarksDialog(QDialog):
     
@@ -165,17 +155,29 @@ class create_VectorGuidMarksDialog(QDialog):
         global params,ac_color,is_dark
         params['size_mode'] = "paper"
         self.setWindowTitle("Vector Guide Marks settings")
-        self.setWindowFlag(Qt.WindowStaysOnTopHint)
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.centralWidget = uic.loadUi( os.path.join(os.path.dirname(os.path.realpath(__file__)),"user_interface.ui"))
+        self.setWindowFlag(QC.Window.WindowStaysOnTopHint)
+        self.setSizePolicy(QC.Policy.Fixed, QC.Policy.Fixed)
 
-        is_dark = is_ui_color_dark(self)
+        ui_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "user_interface.ui")
+        self.centralWidget = uic.loadUi(ui_path)
+
+        is_dark = self.is_ui_color_dark()
         ac_color = "#CCCCCC" if is_dark== True else "#111111"
 
 
         # Temporary state（This dict can store preview-ID and various data for input field value）
         # self.preview_state = {}
         self.preview_state = PreviewState()
+
+
+        # Debounce timer
+        #self.preview_timer = QTimer(self)
+        #self.preview_timer.setSingleShot(True)  # Setting to only hit once even if pressed repeatedly
+        #self.preview_timer.timeout.connect(self.run_preview) # Invoke this function after wait
+        #self._is_previewing = False
+        # Timer start at last of on_value_changed()
+
+
 
         self.log_window = None 
 
@@ -229,9 +231,14 @@ class create_VectorGuidMarksDialog(QDialog):
         font.setBold(True)
         self.checkBleed.setFont(font)
 
+
         self.checkBleed.stateChanged.connect(
-            lambda state: self.on_value_changed("use_bleed", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "use_bleed",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
 
         #self.lineBleed = self.findChild(QLineEdit, "lineBleed")
         #self.lineBleed.setValidator(QIntValidator(-9999, 9999))
@@ -249,14 +256,21 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkGuide = self.findChild(QCheckBox, "checkGuide")
         self.checkGuide.setChecked(params['use_guide'])  # make chaked
         self.checkGuide.stateChanged.connect(
-            lambda state: self.on_value_changed("use_guide", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "use_guide",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
 
         # Guide checkbox
         self.checkGuide2 = self.findChild(QCheckBox, "checkGuide2")
         self.checkGuide2.setChecked(params['unit_cut_guide'])  # make chaked
         self.checkGuide2.stateChanged.connect(
-            lambda state: self.on_value_changed("unit_cut_guide", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "unit_cut_guide",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
 
 
@@ -265,15 +279,24 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkPreview = self.findChild(QCheckBox, "checkPreview")
         self.checkPreview.setChecked(params['preview'])  # make chaked
         self.checkPreview.stateChanged.connect(
-            lambda state: self.on_value_changed("preview", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "preview",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
 
         # Frame checkbox
         self.checkFrame = self.findChild(QCheckBox, "checkFrame")
         self.checkFrame.setChecked(params['frame'])  # make chaked
         self.checkFrame.stateChanged.connect(
-            lambda state: self.on_value_changed("frame", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "frame",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
 
 
         self.comboUnit = self.findChild(QComboBox, "comboUnit")
@@ -289,15 +312,23 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkSlice = self.findChild(QCheckBox, "checkSlice")
         self.checkSlice.setChecked(params['slice'])  # make chaked
         self.checkSlice.stateChanged.connect(
-            lambda state: self.on_value_changed("slice", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "slice",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
 
 
         # FGrid checkbox
         self.chkAddGGide = self.findChild(QCheckBox, "chkAddGGide")
         self.chkAddGGide.setChecked(params['mod_grid_guide'])  # make chaked
         self.chkAddGGide.stateChanged.connect(
-            lambda state: self.on_value_changed("mod_grid_guide", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "mod_grid_guide",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
 
 
@@ -307,17 +338,26 @@ class create_VectorGuidMarksDialog(QDialog):
         self.chkTxtCapa = self.findChild(QCheckBox, "chkTxtCapa")
         self.chkTxtCapa.setChecked(params['txt_capa'])  # make chaked
         self.chkTxtCapa.stateChanged.connect(
-            lambda state: self.on_value_changed("txt_capa", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "txt_capa",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
         self.chkTxtCapa.setToolTip("Display the estimated max text per frame (Active only if rows or columns are not divided)")
 
         # Rounded Corner checkbox
         self.chkRoundedCorners = self.findChild(QCheckBox, "chkRoundedCorners")
         self.chkRoundedCorners.setChecked(params['rounded_corners'])  # make chaked
         self.chkRoundedCorners.stateChanged.connect(
-            lambda state: self.on_value_changed("rounded_corners", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "rounded_corners",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
-        self.chkTxtCapa.setToolTip("It rounds the corners of the grid units.")
+
+        self.chkRoundedCorners.setToolTip("It rounds the corners of the grid units.")
 
         # Roundness
         self.Roundness = self.findChild(QSpinBox, "Roundness")
@@ -330,13 +370,12 @@ class create_VectorGuidMarksDialog(QDialog):
         # Ignore shape size (Free total size)
         self.chkIgnoreShape = self.findChild(QCheckBox, "chkIgnoreShape")
         self.chkIgnoreShape.setChecked(params['ignore_shape'])  # make chaked
-        self.chkIgnoreShape.stateChanged.connect(
-            lambda state: self.on_value_changed("ignore_shape", state ==  Qt.Checked)
-        )
         self.chkIgnoreShape.stateChanged.connect(self.on_ignore_shape_size_changed)
+
         ignore_shape = params.get("ignore_shape", False)
         self.chkIgnoreShape.setChecked(ignore_shape)
         self.chkIgnoreShape.setToolTip("Allows you to manually set the total size, ignoring the original shape dimensions.")
+
 
 
         #Grid Slices
@@ -438,21 +477,37 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkInfo = self.findChild(QCheckBox, "checkInfo")
         self.checkInfo.setChecked(params['info'])  # make chaked
         self.checkInfo.stateChanged.connect(
-            lambda state: self.on_value_changed("info", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "info",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
 
         # Dim
         self.checkDim = self.findChild(QCheckBox, "checkDim")
         self.checkDim.setChecked(params['dimension'])  # make chaked
         self.checkDim.stateChanged.connect(
-            lambda state: self.on_value_changed("dimension", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "dimension",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
+
         # DimScale
         self.checkScale = self.findChild(QCheckBox, "checkScale")
         self.checkScale.setChecked(params['dim_scale'])  # make chaked
         self.checkScale.stateChanged.connect(
-            lambda state: self.on_value_changed("dim_scale", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "dim_scale",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
         # DimScaleFactor
         self.dimScaleFactor = self.findChild(QSpinBox, "dimScaleFactor")
         self.dimScaleFactor.setSingleStep(1)
@@ -466,14 +521,24 @@ class create_VectorGuidMarksDialog(QDialog):
         self.checkDimW = self.findChild(QCheckBox, "checkDimW")
         self.checkDimW.setChecked(params['dim_w'])  # make chaked
         self.checkDimW.stateChanged.connect(
-            lambda state: self.on_value_changed("dim_w", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "dim_w",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
+
+
         # DimHeight
         self.checkDimH = self.findChild(QCheckBox, "checkDimH")
         self.checkDimH.setChecked(params['dim_h'])  # make chaked
         self.checkDimH.stateChanged.connect(
-            lambda state: self.on_value_changed("dim_h", state ==  Qt.Checked)
+            lambda state: self.on_value_changed(
+                "dim_h",
+                QC.CheckState(state) == QC.CheckState.Checked
+            )
         )
+
 
 
         # raddiobuttons set
@@ -506,15 +571,16 @@ class create_VectorGuidMarksDialog(QDialog):
 
 
         # connect
-        self.cancelButton.clicked.connect(self.cancel_dialog)
-        self.okButton.clicked.connect(self.ok_dialog)
+        self.cancelButton.clicked.connect(lambda _: self.cancel_dialog())
+        self.okButton.clicked.connect(lambda _: self.ok_dialog())
+
 
         # Paramater initialize
         # self.preview_state = params.copy() 
         for key, value in params.items():
             self.preview_state.set(key, value, emit_signal=False)
         # self.preview_state.stateChanged.connect(self.on_state_changed)
-        self.preview_state.stateChanged.connect(self.update_ui_from_state)
+        self.preview_state.stateChanged.connect(lambda k, v: self.update_ui_from_state(k, v))
 
 
         self.initialized = False
@@ -524,7 +590,7 @@ class create_VectorGuidMarksDialog(QDialog):
 
 
     def on_ignore_shape_size_changed(self, state):
-        checked = (state == Qt.Checked)
+        checked = (QC.CheckState(state) == QC.CheckState.Checked)# Qt5/6
         self.preview_state["ignore_shape"] = checked
     
         self.vtotal_w.setEnabled(checked)
@@ -579,13 +645,17 @@ class create_VectorGuidMarksDialog(QDialog):
                 if name.startswith("vtotal") and row_count==1:widget.setEnabled(True);continue
                 widget.setEnabled(not disable_row_related)
 
-    
         # spinbox_update
         widget = getattr(self, key, None)
         if widget:
-            widget.blockSignals(True)
-            widget.setValue(value)
-            widget.blockSignals(False)
+            # block other signals
+            widget.blockSignals(True) 
+            try:
+                widget.setValue(value)
+            finally:
+                # recover it
+                widget.blockSignals(False)
+
 
 
 
@@ -660,6 +730,7 @@ class create_VectorGuidMarksDialog(QDialog):
 
 
     def on_value_changed(self, key, value):
+        # print(f"DEBUG: key={key}, value={value}, type={type(value)}")
         global params, sizes
 
         if value == "":
@@ -747,6 +818,7 @@ class create_VectorGuidMarksDialog(QDialog):
         # Preview ON
         if self.preview_state.get('preview', False):
             self.run_preview()
+            #self.preview_timer.start(500)# For Debounce
         else:
             prefix = self.preview_state.get('prefix', 'preview_')
             script_main.re_init(prefix)
@@ -763,10 +835,9 @@ class create_VectorGuidMarksDialog(QDialog):
 
 
 
-
     def changeEvent(self, event):
         global params,ac_color,is_dark
-        if event.type() == QEvent.ActivationChange:
+        if event.type() == qt_event("ActivationChange"):
             if self.isActiveWindow() and not getattr(self, "_preview_updated", False):
                 self._preview_updated = True
     
@@ -777,7 +848,7 @@ class create_VectorGuidMarksDialog(QDialog):
 
 
         if self.isActiveWindow():
-            is_dark = is_ui_color_dark(self)
+            is_dark = self.is_ui_color_dark()
             ac_color = "#CCCCCC" if is_dark== True else "#111111"
 
         super().changeEvent(event)
@@ -799,15 +870,28 @@ class create_VectorGuidMarksDialog(QDialog):
         self.print_all_size(ab)
 
 
-
-
     def run_preview(self):
-        # Preview condition
-
         prefix = self.preview_state.get('prefix', 'preview_')
         script_main.re_init(prefix)
         script_main.main(self.preview_state)
         script_main.re_z_index(prefix, 9999)
+
+
+    def run_preview_debounce(self):
+        # Debounce
+        if getattr(self, "_is_previewing", False):
+            # If the previous preview is not yet finished, wait a moment and try again.
+            self.preview_timer.start(100)
+            return
+    
+        self._is_previewing = True # Lock
+        try:
+            prefix = self.preview_state.get('prefix', 'preview_')
+            script_main.re_init(prefix)
+            script_main.main(self.preview_state)
+            script_main.re_z_index(prefix, 9999)
+        finally:
+            self._is_previewing = False # UnLock
 
     # ----------------
     # Utility functions
@@ -953,6 +1037,15 @@ class create_VectorGuidMarksDialog(QDialog):
         return combined_list
 
 
+    def is_ui_color_dark(self):
+        palette = QApplication.palette()
+        bg_color = palette.color(QC.Role.Window)
+        brightness = (bg_color.red() * 299 + bg_color.green() * 587 + bg_color.blue() * 114) / 1000
+        
+        if brightness < 128:
+            print("Dark theme detected");return True
+        else:
+            print("Light theme detected");return False
 
 
     # ----------------
@@ -993,6 +1086,11 @@ class create_VectorGuidMarksDialog(QDialog):
         self.log_window.append_log(message)
 
 
+
+
+
+
+
 class PreviewState(QObject):
     stateChanged = pyqtSignal(str, object)
 
@@ -1026,29 +1124,13 @@ class PreviewState(QObject):
 
 
 
-
-
-
-# Run this command directly
-def run_direct(self):
-    global params
-    params['mode'] = "direct"
-    script_main.main(params)
-    script_main.determine(params['prefix'])
-
-def is_ui_color_dark(self):
-    palette = QApplication.palette()
-    bg_color = palette.color(QPalette.Window)
-
-    brightness = (bg_color.red() * 299 + bg_color.green() * 587 + bg_color.blue() * 114) / 1000
-    
-    if brightness < 128:
-        print("Dark theme detected");return True
-    else:
-        print("Light theme detected");return False
-
-
-class vector_guide_marks(Extension):
+class vector_guide_marks(krita.Extension):
+    # Run this command directly
+    def run_direct(self):
+        global params
+        params['mode'] = "direct"
+        script_main.main(params)
+        script_main.determine(params['prefix'])
 
     def __init__(self, parent):
         # This is initialising the parent, always important when subclassing.

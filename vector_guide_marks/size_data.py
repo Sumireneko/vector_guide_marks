@@ -163,15 +163,12 @@ fixed_sizes = [
     "D1(GB)", "D2(GB)", "D3(GB)", "D4(GB)", "D5(GB)","D6(GB)","D7(GB)","__sep__"
 ]
 
-# ---------------
-#  Menu Entries
-# ---------------
+
 preset_menu_entry = [
     "All","__sep__","US","Europe","Asia","Japan","__sep__",
     "Cards","Refill","Photo","Envelope","__sep__","Pixel","__sep__",
     "Free"
 ]
-
 paper_menu_entry = {
     "US": ["Ledger_US", "Tabloid_US", "Legal_US", "Letter_US", "Executive_US", "Statement_US","__sep__","ANSI_E", "ANSI_D", "ANSI_C", "ANSI_B", "ANSI_A"],
     "Japan": ["A1","A2","A3","A4", "A5","A6", "A7","A8","A9","__sep__","B3(JIS)", "B4(JIS)", "B5(JIS)","B6(JIS)","B7(JIS)","B8(JIS)","B9(JIS)","__sep__","BusinessCard_JP","Postcard_JP","ShopCard","__sep__", "Tanzaku_B2" "Tanzaku_B3","Shiori","CreditCard_JIS"],

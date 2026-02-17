@@ -9,10 +9,13 @@ try:
     from PyQt6 import uic
     from PyQt6.QtWidgets import *
     from PyQt6.QtGui import QTransform
+    from PyQt6.QtCore import QCoreApplication
 except:
     from PyQt5 import uic
     from PyQt5.QtWidgets import *
     from PyQt5.QtGui import QTransform
+    from PyQt5.QtCore import QCoreApplication
+
 
 from krita import *
 from .size_data import sizes,fixed_sizes
@@ -329,6 +332,7 @@ def draw_cropmarks(shape_count,doc,trans,params,x,y,width,height,prefix):
     # Grid Slice
     s_slice = params['slice']
     if s_slice is True and params.get("ignore_shape") == True:
+        print("Slice_and Free Seze")
         width = params['vtotal_w'] * PT_EQ_1MM
         height = params['vtotal_h'] * PT_EQ_1MM
 
@@ -426,8 +430,8 @@ def draw_cropmarks(shape_count,doc,trans,params,x,y,width,height,prefix):
     # Grid Slice
     if s_slice is True:
 
-        #print("debug orig_raw:",width,height)
-        #print("Grid size mode:", params["grid_size_mode"])
+        print("debug orig_raw:",width,height)
+        print("Grid size mode:", params["grid_size_mode"])
 
         update_grid_layout(params,width/PT_EQ_1MM,height/PT_EQ_1MM)
 
@@ -550,7 +554,7 @@ def limit_unit_by_total(total_value):
 
 
 
-def qtransform_to_svg_transform(transform: QTransform):
+def qtransform_to_svg_transform(transform):
     """Convert QTransform to SVG transform attribute format
     transform = QTransform(1, 0, 0, 1, 100, 200)
     svg_transform = qtransform_to_svg_transform(transform)
@@ -976,6 +980,8 @@ def calculate_unit_size(total, spacing, count):
 #  preview
 # ------------
 def rm_shape(shape,prefix):
+    if not shape: return
+
     try:
         if shape is None:
             print("Error: shape is None")
@@ -990,9 +996,6 @@ def rm_shape(shape,prefix):
         if not isinstance(sname, str):
             print("Error: shape.name() did not return string")
             return
-
-
-
 
         if sname.startswith(prefix):
             if shape and hasattr(shape, 'remove') and callable(shape.remove):
@@ -1021,6 +1024,7 @@ def re_init(prefix):
     try:
         app = Krita.instance()
         doc = app.activeDocument()
+        doc.setBatchmode(True)
         view = app.activeWindow().activeView()
         selected_layers = view.selectedNodes()
         
@@ -1040,6 +1044,9 @@ def re_init(prefix):
     except Exception as e:
         print(f"[re_init] Exception occurred: {e}")
     finally:
+        if doc:
+            doc.setBatchmode(False)
+            doc.refreshProjection() # re-draw
         is_updating = False
         print("[re_init] is_updating=False")
 
@@ -1219,7 +1226,6 @@ def get_size(sel="A5",dir="vertical"):
 # ------------
 # main
 # ------------
-
 def compute_correction_factor(actual_px, target_mm, dpi=96):
     target_px = target_mm * dpi / 25.4
     return actual_px / target_px
@@ -1292,7 +1298,12 @@ def main(params):
                 #print(s.name(),"lcap",lcap," _ ", params['dbg_wpad'] ," and ", params['dbg_dpad'] )
 
             #wpad = wpad*float(match_st.group(1))*0.53#0.53
-            wpad = wpad*float(match_st.group(1))*params['dbg_wpad']#0.53
+
+            if match_st:
+                sw = float(match_st.group(1))
+            else:
+                sw = 0.001  # Default,or zero
+            wpad = wpad * sw * params['dbg_wpad']#0.53
 
             # Increase wpad then the frame size decrease (become smaller)
             #if params['dimension']==True:wpad = wpad*3.05 #3.05 
@@ -1400,6 +1411,8 @@ def main(params):
             svg_text=draw_cropmarks(shape_count,doc,trans,params,x,y,width,height,prefix)
             #print(svg_text)
             #vector_layers[0].addShapesFromSvg(svg_text)
+
+            svg_text = svg_cleaning(svg_text)# Workaround for Krita 5.3/6.0
             active_layer.addShapesFromSvg(svg_text)
     
     
@@ -1421,6 +1434,37 @@ def main(params):
     else:
         print("Error: VectorLayer not found")
     #print(active_layer.toSvg())
+
+def svg_cleaning(svg_content):
+    """
+    Krita5.3/6.0 has a strict requirement for SVG elements to have a non-zero bounding box.
+    Injecting empty tags like <text /> or <path d="" /> can cause an infinite loop 
+    within Krita's KoRTree/R-Tree indexing,leading to a complete application freeze.
+
+    for example : KoRTree::insert boundingBox isNull setting size to QSizeF(0, 0)
+    
+    This function filters out these problematic empty elements and returns a "safe" 
+    SVG string. If the resulting content has no renderable shapes, it returns an 
+    empty string or None to prevent further processing.
+    """
+    if not svg_content:
+        return ""
+
+    #  Remove self-closing empty text tags: <text ... />
+    svg_content = re.sub(r'<text[^>]*/>', '', svg_content)
+    
+    # Remove empty text tags with content: <text ...></text>
+    svg_content = re.sub(r'<text[^>]*>\s*</text>', '', svg_content)
+    
+    # Remove empty path tags: <path d="" /> or <path d=" " />
+    # Krita also chokes on empty paths in the R-Tree.
+    svg_content = re.sub(r'<path[^>]*d="\s*"[^/>]*/?>', '', svg_content)
+
+    # Cleanup: If the group <g>...</g> became empty after filtering, 
+    # you might want to remove it too to be extra safe.
+    svg_content = re.sub(r'<g[^>]*>\s*</g>', '', svg_content)
+
+    return svg_content.strip()
 
 
 def apply_matrix_to_point(x, y, a, b, c, d, e, f):
@@ -1465,13 +1509,13 @@ def get_groupshape_bounds(krita_shape):
 
 
 
-def apply_transform_to_points(transform: QTransform, points: list):
+def apply_transform_to_points(transform, points: list):
     transformed_points = [transform.map(point[0], point[1]) for point in points]
     return [{"x": p.x(), "y": p.y()} for p in transformed_points]
 
 
 
-def qtransform_to_svg_transform(transform: QTransform):
+def qtransform_to_svg_transform(transform):
     return f"matrix({transform.m11()} {transform.m12()} {transform.m21()} {transform.m22()} {transform.m31()} {transform.m32()})"
 
 
