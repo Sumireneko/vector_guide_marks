@@ -1,5 +1,6 @@
 ## VectorGuideMarks plug-in - Trim,Grid and Dimension
 In this version 0.6 support both of PyQt5 and 6 compatibility
+(ForUse  Krita v5.3.0 and v6.0.0)
 
 **Note**: 
 
