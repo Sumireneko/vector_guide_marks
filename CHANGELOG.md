@@ -12,6 +12,7 @@
   - BugFixed: The issue that Grid cut guide or Grid guide are drawing two times.
 - v0.51  Typo correction and size adjustment,Small update
 - v0.5  Initial Released   
+- v0.6  Krita 5.3 and 6 compatible (PyQt5 / PyQt6 supported)
 
 ### References
 - [Paper size](https://en.wikipedia.org/wiki/Paper_size)  
