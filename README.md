@@ -1,6 +1,11 @@
 ## VectorGuideMarks plug-in - Trim,Grid and Dimension
-v0.581
+In this version 0.6 support both of PyQt5 and 6 compatibility
 
+**Note**: 
+
+But it may freeze when used with an older PC/OS, such as a Mac Mini (2014) running on Krita 5.3.0 (Python 3.13.5).
+Becaue this plugin uses a large number of elements and provides real-time preview.
+In this case,I recommend using 5.2.x (Python 3.10.7) with an older version without a compatibility layer(v0.581).
 
 <img width="256" height="256" alt="vector_guide_marks-logo" src="https://github.com/user-attachments/assets/f83fc520-5925-4685-a5a8-199297223435" />
 
