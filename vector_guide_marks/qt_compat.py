@@ -1,5 +1,5 @@
 # ============================================================
-#  qt_compat.py — Python   Qt5/Qt6 compatibility layer
+#  qt_compat.py v0.2 — Python   Qt5/Qt6 compatibility layer
 # ============================================================
 #  How to use
 # from .qt_compat import SafeQtWidgets as QtWidgets, QC, qt_exec
@@ -24,8 +24,10 @@ if qt_major >= 6:
     from PyQt6.QtCore import (
             Qt, QEvent, QObject, pyqtSignal, pyqtSlot, QTimer, QPointF, QRectF, QSize,QPoint, QFile,QIODevice
         )
+
     from PyQt6.QtCore import QSignalBlocker
-    from PyQt6.QtGui import QCursor, QPalette, QFont,QColor, QIcon,QClipboard,QTextCursor,QGuiApplication, QAction , QPainter, QPen,QTransform, QIntValidator,QImage, QPixmap
+    from PyQt6.QtGui import QCursor, QPalette, QFont, QFontMetrics,QColor, QIcon,QClipboard,QTextCursor,QGuiApplication, QAction , QPainter, QPen,QTransform, QIntValidator,QImage, QPixmap
+    QFontMetricsF = QFontMetrics
     from PyQt6.QtWidgets import (
             QApplication, QDialog, QTextEdit, QVBoxLayout, QPushButton, QSlider,QLineEdit,QFormLayout,
             QRadioButton, QButtonGroup, QLabel, QHBoxLayout, QMessageBox,QSpinBox,QCheckBox,QComboBox,
@@ -47,7 +49,8 @@ else:
             Qt, QEvent, QObject, pyqtSignal, pyqtSlot, QTimer, QPointF, QRectF, QSize,
             QSignalBlocker,QPoint, QFile,QIODevice
         )
-    from PyQt5.QtGui import QCursor, QPalette, QFont, QColor, QIcon,QClipboard,QTextCursor, QGuiApplication,QPainter, QPen,QTransform, QIntValidator,QImage, QPixmap
+    # PyQt5 has QFontMetrics and -F
+    from PyQt5.QtGui import QCursor, QPalette, QFont,QFontMetrics, QFontMetricsF, QColor, QIcon,QClipboard,QTextCursor, QGuiApplication,QPainter, QPen,QTransform, QIntValidator,QImage, QPixmap
     # PyQt5  QAction exist in QtWidgets
     from PyQt5.QtWidgets import (
             QApplication, QDialog, QTextEdit, QVBoxLayout, QPushButton, QSlider,QLineEdit,QFormLayout,
@@ -163,6 +166,58 @@ def qt_exec(dialog):
     return 0
 
 
+# Method Compatibility Helpers
+def get_text_width(metrics, text):
+    """
+    Get text width safely in any Qt environment.
+    1. Qt6 / Qt5.11+ : horizontalAdvance 
+    2. Qt5 Old       : width 
+    3. Fallback      : boundingRect().width 
+    """
+    try:
+        if hasattr(metrics, "horizontalAdvance"):
+            return metrics.horizontalAdvance(text)
+    except Exception:
+        pass
+
+    try:
+        if hasattr(metrics, "width"):
+            return metrics.width(text)
+    except Exception:
+        pass
+
+    # Calculated from the drawing range (in the case of QFontMetricsF, rect.width() returns a float)
+    try:
+        return metrics.boundingRect(text).width()
+    except Exception:
+        return 0.0 # Preventing crashes in case of an emergency
+
+def get_text_height(metrics, text):
+    """
+    Get text height safely in any Qt environment.
+    1. Qt6 / Qt5.11+ : verticalAdvance 
+    2. Qt5 Old       : height 
+    3. Fallback      : boundingRect().height 
+    """
+
+    """
+    try:
+        if hasattr(metrics, "verticalAdvance"):
+            return metrics.verticalAdvance(text)
+    except Exception:
+        pass
+    """
+    try:
+        if hasattr(metrics, "height"):
+            return metrics.height(text)
+    except Exception:
+        pass
+
+    # Calculated from the drawing range (in the case of QFontMetricsF, rect.height() returns a float)
+    try:
+        return metrics.boundingRect(text).height()
+    except Exception:
+        return 0.0 # Preventing crashes in case of an emergency
 
 
 def qt_load_ui(ui_path):
